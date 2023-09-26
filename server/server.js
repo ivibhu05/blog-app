@@ -1,9 +1,12 @@
 import express from "express";
 import "dotenv/config";
 import mongoose from "mongoose";
+import router from "./src/routes/user-routes";
 
 const app = express();
 const PORT = 8000;
+
+app.use("/api/v1", router);
 
 mongoose
   .connect(
