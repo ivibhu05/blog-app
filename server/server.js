@@ -1,12 +1,15 @@
-import express from "express";
 import "dotenv/config";
+import express from "express";
 import mongoose from "mongoose";
-import router from "./src/routes/user-routes";
+import userRouter from "./src/routes/user-routes.js";
+import blogRouter from "./src/routes/blog-routes.js";
 
 const app = express();
 const PORT = 8000;
 
-app.use("/api/v1", router);
+app.use(express.json());
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/blogs", blogRouter);
 
 mongoose
   .connect(

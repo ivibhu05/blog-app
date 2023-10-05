@@ -5,18 +5,18 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   name: {
     type: String,
-    required: true,
+    required: [true, "User name is required"],
   },
   email: {
     type: String,
-    required: true,
+    required: [true, "User email is required"],
     unique: true,
   },
   password: {
     type: String,
-    required: true,
+    required: [true, "Please enter a password"],
     minLength: 6,
   },
 });
 
-export default mongoose.Model("User", userSchema);
+export default mongoose.model("User", userSchema);
