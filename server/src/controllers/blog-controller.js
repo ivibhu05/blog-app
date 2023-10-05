@@ -48,7 +48,59 @@ export const createBlog = async (req, res, next) => {
       },
     });
   } catch (e) {
-    console.log(e);
+    return res.status(500).json({
+      message: "Some error occurred.",
+    });
+  }
+};
+
+export const updateBlog = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { title, description } = req.body;
+
+    let updatedBlog = await Blog.findByIdAndUpdate(
+      id,
+      {
+        title,
+        description,
+      },
+      { new: true }
+    );
+
+    if (!updatedBlog) {
+      return res.status(500).json({
+        message: `Unable to update blog`,
+      });
+    }
+
+    return res.status(200).json({
+      data: updatedBlog,
+      message: "Blog updated successfully.",
+    });
+  } catch (e) {
+    return res.status(500).json({
+      message: "Some error occurred.",
+    });
+  }
+};
+
+export const deleteBlog = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    let deletedBlog = await Blog.findByIdAndDelete(id);
+
+    if (!deleteBlog) {
+      return res.status(500).json({
+        message: "Unable to delete the blog.",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Successfully deleted the blog.",
+    });
+  } catch (e) {
     return res.status(500).json({
       message: "Some error occurred.",
     });
